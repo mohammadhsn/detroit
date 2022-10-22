@@ -8,7 +8,7 @@ class InMemoryCommandBus implements CommandBus
     {
     }
 
-    public function handler(Command $command): ?string
+    public function handle(Command $command): ?string
     {
         $handler = new ($this->repository->handlerClassFor($command));
         return $handler->handle($command);

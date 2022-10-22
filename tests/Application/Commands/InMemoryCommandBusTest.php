@@ -22,12 +22,12 @@ class InMemoryCommandBusTest extends TestCase
 
     public function test_handling_a_command()
     {
-        $this->assertNull($this->bus->handler(new DoSomething));
+        $this->assertNull($this->bus->handle(new DoSomething));
     }
 
     public function test_handling_an_undefined_command()
     {
         $this->expectException(CommandDoesNotExist::class);
-        $this->bus->handler(new DoSomethingElse);
+        $this->bus->handle(new DoSomethingElse);
     }
 }

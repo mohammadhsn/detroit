@@ -4,5 +4,5 @@ namespace Detroit\Core\Application\Commands;
 
 interface CommandBus
 {
-    public function handler(Command $command): ?string;
+    public function handle(Command $command): ?string;
 }
