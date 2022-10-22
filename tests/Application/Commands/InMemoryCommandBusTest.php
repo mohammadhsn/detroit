@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Detroit\Tests\Application\Commands;
 
 use Detroit\Core\Application\Commands\CommandDoesNotExist;
@@ -11,10 +13,10 @@ class InMemoryCommandBusTest extends TestCase
 {
     private InMemoryCommandBus $bus;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $repo = new CommandRepository([
-            DoSomething::class => DoSomethingHandler::class
+            DoSomething::class => DoSomethingHandler::class,
         ]);
 
         $this->bus = new InMemoryCommandBus($repo);
@@ -22,12 +24,12 @@ class InMemoryCommandBusTest extends TestCase
 
     public function test_handling_a_command()
     {
-        $this->assertNull($this->bus->handle(new DoSomething));
+        $this->assertNull($this->bus->handle(new DoSomething()));
     }
 
     public function test_handling_an_undefined_command()
     {
         $this->expectException(CommandDoesNotExist::class);
-        $this->bus->handle(new DoSomethingElse);
+        $this->bus->handle(new DoSomethingElse());
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Detroit\Tests\Concerns;
 
 use Detroit\Core\Concerns\Application;
@@ -16,13 +18,13 @@ class ApplicationTest extends TestCase
     {
         $this->app = new Application('my-app', [
             new Context('orders', 'src/Order', [
-                DoSomething::class => DoSomethingHandler::class
+                DoSomething::class => DoSomethingHandler::class,
             ]),
         ]);
     }
 
-    public function test_command_bus() 
+    public function test_command_bus()
     {
-        $this->assertNull($this->app->commandBus()->handle(new DoSomething));
+        $this->assertNull($this->app->commandBus()->handle(new DoSomething()));
     }
 }

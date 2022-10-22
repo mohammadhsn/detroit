@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Detroit\Core\Application\Commands;
 
 class CommandRepository
@@ -18,7 +20,7 @@ class CommandRepository
 
     public function exists(Command $command): bool
     {
-        return array_key_exists(get_class($command), $this->commands);
+        return \array_key_exists(\get_class($command), $this->commands);
     }
 
     public function handlerClassFor(Command $command): string
@@ -27,6 +29,6 @@ class CommandRepository
             throw CommandDoesNotExist::from($command);
         }
 
-        return $this->commands[get_class($command)];
+        return $this->commands[\get_class($command)];
     }
 }
