@@ -1,2 +1,2 @@
 # detroit
-Development ready PHP-DDD framework
+A development-ready PHP implementation of clean architecture
