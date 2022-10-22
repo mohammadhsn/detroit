@@ -2,14 +2,12 @@
 
 namespace Detroit\Core\Concerns\BoundedContext;
 
-abstract class Context
+class Context
 {
-    protected array $commands;
-    protected array $queries;
-
     public function __construct(
         public readonly string $name,
         public readonly string $path,
+        public readonly array $commands,
     ) {}
 
     protected function pathSeparator(string ...$locations): string
