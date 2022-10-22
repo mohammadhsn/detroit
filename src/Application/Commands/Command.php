@@ -1,6 +1,6 @@
 <?php
 
-namespace Detroit\Core\Application\Command;
+namespace Detroit\Core\Application\Commands;
 
 interface Command
 {
