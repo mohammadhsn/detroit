@@ -3,7 +3,8 @@
     "description": "A development-ready PHP implementation of clean architecture",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^6.1"
     },
     "autoload": {
         "psr-4": {
