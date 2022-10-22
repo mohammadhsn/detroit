@@ -2,6 +2,7 @@
 
 namespace Detroit\Tests\Domain\Aggregate;
 
+use Detroit\Tests\Domain\Event\DummyEvent;
 use PHPUnit\Framework\TestCase;
 
 class AggregateRootTest extends TestCase
@@ -10,5 +11,12 @@ class AggregateRootTest extends TestCase
     {
         $aggregate = new DummyAggregateRoot;
         $this->assertInstanceOf(DummyAggregateRoot::class, $aggregate);
+    }
+
+    public function test_record_event()
+    {
+        $aggregate = new DummyAggregateRoot;
+        $aggregate->doSomething();
+        $this->assertInstanceOf(DummyEvent::class, $aggregate->pullRecordedEvents()[0]);
     }
 }
