@@ -9,7 +9,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Detroit\\Core\\": "src/",
+            "Detroit\\Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Detroit\\Tests\\": "tests/"
         }
     },
