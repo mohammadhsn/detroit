@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Concerns;
+namespace Detroit\Core\Concerns\App;
 
 use Detroit\Core\Application\Commands\CommandBus;
 use Detroit\Core\Application\Commands\CommandRepository;

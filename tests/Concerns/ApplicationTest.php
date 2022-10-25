@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Concerns;
 
-use Detroit\Core\Concerns\Application;
+use Detroit\Core\Concerns\App\Application;
 use Detroit\Core\Concerns\BoundedContext\Context;
 use Detroit\Tests\Application\Commands\DoSomething;
 use Detroit\Tests\Application\Commands\DoSomethingHandler;
