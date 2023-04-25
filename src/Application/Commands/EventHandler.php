@@ -6,7 +6,7 @@ namespace Detroit\Core\Application\Commands;
 
 use Detroit\Core\Domain\Event\DomainEvent;
 
-interface CommandBus
+interface EventHandler
 {
-    public function handle(Command|DomainEvent $message): ?string;
+    public function handle(DomainEvent $event): void;
 }
