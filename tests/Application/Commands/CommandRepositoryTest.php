@@ -15,9 +15,9 @@ class CommandRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->repository = new CommandRepository([
+        $this->repository = CommandRepository::fromMap(
             new CommandMap(DoSomething::class, DoSomethingHandler::class, DummyRepository::class)
-        ]);
+        );
     }
 
     public function test_exists()
@@ -41,5 +41,15 @@ class CommandRepositoryTest extends TestCase
     public function test_repo_class_for()
     {
         $this->assertEquals(DummyRepository::class, $this->repository->repoClassFor(new DoSomething));
+    }
+
+    public function test_array_factory()
+    {
+        $repo = CommandRepository::fromCommands([
+            new CommandMap(DoSomething::class, DoSomethingHandler::class, DummyRepository::class),
+            new CommandMap(DoSomethingElse::class, DoSomethingHandler::class, DummyRepository::class),
+        ]);
+
+        $this->assertCount(2, $repo->all());
     }
 }

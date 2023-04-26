@@ -9,7 +9,7 @@ use ReflectionClass;
 
 trait ChecksTypes
 {
-    private function mustImplement(string $class, string $interface): void
+    protected function mustImplement(string $class, string $interface): void
     {
         $ref = new ReflectionClass($class);
 
@@ -20,7 +20,7 @@ trait ChecksTypes
         }
     }
 
-    public function mustExtend(string $class, string $parent): void
+    protected function mustExtend(string $class, string $parent): void
     {
         $ref = new ReflectionClass($class);
 

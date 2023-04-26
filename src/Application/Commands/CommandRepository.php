@@ -9,13 +9,22 @@ class CommandRepository
     private array $commands = [];
 
     /**
-     * @var CommandConfig[] $commands
+     * @param CommandMap[] $commands
      */
-    public function __construct(array $commands)
+    public static function fromCommands(array $commands): self
     {
+        $repo = new static();
+
         foreach ($commands as $map) {
-            $this->register($map);
+            $repo->register($map);
         }
+
+        return $repo;
+    }
+
+    public static function fromMap(CommandMap $map): self
+    {
+        return (new static())->register($map);
     }
 
     public function register(CommandMap $map): self

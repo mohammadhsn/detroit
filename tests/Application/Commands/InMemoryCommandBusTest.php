@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Detroit\Tests\Application\Commands;
 
 use Detroit\Core\Application\Commands\CommandDoesNotExist;
+use Detroit\Core\Application\Commands\CommandMap;
 use Detroit\Core\Application\Commands\CommandRepository;
+use Detroit\Core\Application\Commands\EventRepository;
 use Detroit\Core\Application\Commands\InMemoryCommandBus;
+use Detroit\Core\Concerns\App\Container;
+use Detroit\Tests\Domain\DummyRepository;
 use PHPUnit\Framework\TestCase;
 
 class InMemoryCommandBusTest extends TestCase
@@ -15,11 +19,13 @@ class InMemoryCommandBusTest extends TestCase
 
     protected function setUp(): void
     {
-        $repo = new CommandRepository([
-            DoSomething::class => DoSomethingHandler::class,
-        ]);
+        $commands = CommandRepository::fromMap(
+            new CommandMap(DoSomething::class, DoSomethingHandler::class, DummyRepository::class)
+        );
 
-        $this->bus = new InMemoryCommandBus($repo);
+        $this->bus = new InMemoryCommandBus(
+            $commands, new EventRepository(), new Container()
+        );
     }
 
     public function test_handling_a_command()

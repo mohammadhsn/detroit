@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Detroit\Core\Concerns\App;
 
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
+
 
 class Container implements ContainerInterface
 {
@@ -15,7 +15,7 @@ class Container implements ContainerInterface
             return new $id;
         }
 
-        throw new NotFoundExceptionInterface;
+        throw new \Exception("class {$id} does not exist");
     }
 
     public function has(string $id): bool

@@ -8,16 +8,25 @@ use Detroit\Core\Domain\Event\DomainEvent;
 
 class EventRepository
 {
-    private array $events;
+    private array $events = [];
 
     /**
-     * @param array<string: array<string>>
+     * @param $events EventMap[]
      */
-    public function __construct(array $events)
+    public static function fromEvents(array $events): self
     {
-        foreach ($events as $event => $handlers) {
-            $this->register($event, $handlers);
+        $repo = new static();
+
+        foreach ($events as $event) {
+            $repo->register($event->event, $event->handlers);
         }
+
+        return $repo;
+    }
+
+    public static function fromMap(EventMap $map): self
+    {
+        return (new static())->register($map->event, $map->handlers);
     }
 
     public function register(string $eventClass, array $handlerClasses): self
