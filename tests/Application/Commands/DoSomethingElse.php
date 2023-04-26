@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Commands;
 
-use Detroit\Core\Application\Commands\Command;
+use Detroit\Core\Application\Handlers\Command;
 
 class DoSomethingElse implements Command
 {

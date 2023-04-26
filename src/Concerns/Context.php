@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Concerns\BoundedContext;
+namespace Detroit\Core\Concerns;
 
 use const DIRECTORY_SEPARATOR;
 

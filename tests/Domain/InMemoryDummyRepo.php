@@ -2,7 +2,7 @@
 
 namespace Detroit\Tests\Domain;
 
-use Detroit\Core\Domain\Aggregate\BaseRepo;
+use Detroit\Core\Domain\Repository\BaseRepo;
 use Detroit\Tests\Domain\Aggregate\DummyAggregateRoot;
 
 class InMemoryDummyRepo extends BaseRepo implements DummyRepository

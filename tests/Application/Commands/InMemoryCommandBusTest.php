@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Commands;
 
-use Detroit\Core\Application\Commands\CommandDoesNotExist;
-use Detroit\Core\Application\Commands\CommandMap;
-use Detroit\Core\Application\Commands\CommandRepository;
-use Detroit\Core\Application\Commands\EventRepository;
-use Detroit\Core\Application\Commands\InMemoryCommandBus;
-use Detroit\Core\Concerns\App\Container;
+use Detroit\Core\Application\Handlers\CommandDoesNotExist;
+use Detroit\Core\Application\Handlers\CommandMap;
+use Detroit\Core\Application\Handlers\CommandRepository;
+use Detroit\Core\Application\Handlers\EventRepository;
+use Detroit\Core\Application\Handlers\InMemoryCommandBus;
+use Detroit\Core\Concerns\Container;
 use Detroit\Tests\Domain\Event\SomethingHappened;
 use Detroit\Tests\Domain\InMemoryDummyRepo;
 use PHPUnit\Framework\TestCase;

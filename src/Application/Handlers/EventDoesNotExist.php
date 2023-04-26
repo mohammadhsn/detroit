@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Application\Commands;
+namespace Detroit\Core\Application\Handlers;
 
 use Detroit\Core\Domain\Event\DomainEvent;
 use Exception;

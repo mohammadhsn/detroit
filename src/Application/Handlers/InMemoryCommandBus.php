@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Application\Commands;
+namespace Detroit\Core\Application\Handlers;
 
-use Detroit\Core\Domain\Aggregate\Repository;
 use Detroit\Core\Domain\Event\DomainEvent;
+use Detroit\Core\Domain\Repository\Repository;
 use Psr\Container\ContainerInterface;
 
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Commands;
 
-use Detroit\Core\Application\Commands\CommandMap;
+use Detroit\Core\Application\Handlers\CommandMap;
 use Detroit\Tests\Domain\DummyRepository;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;

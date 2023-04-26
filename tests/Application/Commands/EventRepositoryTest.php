@@ -2,8 +2,8 @@
 
 namespace Detroit\Tests\Application\Commands;
 
-use Detroit\Core\Application\Commands\EventMap;
-use Detroit\Core\Application\Commands\EventRepository;
+use Detroit\Core\Application\Handlers\EventMap;
+use Detroit\Core\Application\Handlers\EventRepository;
 use Detroit\Tests\Domain\Event\SomethingHappened;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +21,7 @@ class EventRepositoryTest extends TestCase
     public function test_register()
     {
         $this->repository->register(SomethingHappened::class, [SomeReactionHandler::class]);
-        $this->assertCount(2, $this->repository->handlersFor(new SomethingHappened));
+        $this->assertCount(2, $this->repository->handlersFor(new SomethingHappened('foo', 'bar')));
     }
 
     public function test_factory()

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Concerns\App;
+namespace Detroit\Core\Concerns;
 
 use Psr\Container\ContainerInterface;
 

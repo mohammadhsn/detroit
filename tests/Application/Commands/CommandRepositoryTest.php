@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Commands;
 
-use Detroit\Core\Application\Commands\CommandMap;
-use Detroit\Core\Application\Commands\CommandRepository;
+use Detroit\Core\Application\Handlers\CommandMap;
+use Detroit\Core\Application\Handlers\CommandRepository;
 use Detroit\Tests\Domain\DummyRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -22,12 +22,12 @@ class CommandRepositoryTest extends TestCase
 
     public function test_exists()
     {
-        $this->assertTrue($this->repository->exists(new DoSomething));
+        $this->assertTrue($this->repository->exists(new DoSomething('hi')));
     }
 
     public function test_map_for()
     {
-        $this->assertInstanceOf(CommandMap::class, $map = $this->repository->mapFor(new DoSomething));
+        $this->assertInstanceOf(CommandMap::class, $map = $this->repository->mapFor(new DoSomething('hi')));
         $this->assertEquals(DoSomething::class, $map->command);
         $this->assertEquals(DoSomethingHandler::class, $map->handler);
         $this->assertEquals(DummyRepository::class, $map->repo);
@@ -35,12 +35,12 @@ class CommandRepositoryTest extends TestCase
 
     public function test_handler_class_for()
     {
-        $this->assertEquals(DoSomethingHandler::class, $this->repository->handlerClassFor(new DoSomething));
+        $this->assertEquals(DoSomethingHandler::class, $this->repository->handlerClassFor(new DoSomething('hi')));
     }
 
     public function test_repo_class_for()
     {
-        $this->assertEquals(DummyRepository::class, $this->repository->repoClassFor(new DoSomething));
+        $this->assertEquals(DummyRepository::class, $this->repository->repoClassFor(new DoSomething('hi')));
     }
 
     public function test_array_factory()
