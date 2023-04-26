@@ -10,7 +10,8 @@ use Detroit\Core\Application\Commands\CommandRepository;
 use Detroit\Core\Application\Commands\EventRepository;
 use Detroit\Core\Application\Commands\InMemoryCommandBus;
 use Detroit\Core\Concerns\App\Container;
-use Detroit\Tests\Domain\DummyRepository;
+use Detroit\Tests\Domain\Event\SomethingHappened;
+use Detroit\Tests\Domain\InMemoryDummyRepo;
 use PHPUnit\Framework\TestCase;
 
 class InMemoryCommandBusTest extends TestCase
@@ -20,7 +21,7 @@ class InMemoryCommandBusTest extends TestCase
     protected function setUp(): void
     {
         $commands = CommandRepository::fromMap(
-            new CommandMap(DoSomething::class, DoSomethingHandler::class, DummyRepository::class)
+            new CommandMap(DoSomething::class, DoSomethingHandler::class, InMemoryDummyRepo::class)
         );
 
         $this->bus = new InMemoryCommandBus(
@@ -30,7 +31,11 @@ class InMemoryCommandBusTest extends TestCase
 
     public function test_handling_a_command()
     {
-        $this->assertNull($this->bus->handle(new DoSomething()));
+        $this->bus->handle(new DoSomething('hi'));
+
+        $this->assertCount(1, $this->bus->records);
+
+        $this->assertInstanceOf(SomethingHappened::class, array_pop($this->bus->records));
     }
 
     public function test_handling_an_undefined_command()

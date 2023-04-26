@@ -11,6 +11,9 @@ use Psr\Container\ContainerInterface;
 
 class InMemoryCommandBus implements CommandBus
 {
+    /** @var $records DomainEvent[] */
+    public array $records = [];
+
     public function __construct(
         private readonly CommandRepository $commands,
         private readonly EventRepository $events,
@@ -31,8 +34,14 @@ class InMemoryCommandBus implements CommandBus
 
     private function handleCommand(Command $command): ?string
     {
-        return $this->resolveCommandHandler($command)
-            ->handle($command, $this->resolveRepoFor($command));
+        $result = $this->resolveCommandHandler($command)
+            ->handle($command, $repo = $this->resolveRepoFor($command));
+
+        foreach ($repo->seen() as $aggregateRoot) {
+            $this->records = array_merge($this->records, $aggregateRoot->pullRecordedEvents());
+        }
+
+        return $result;
     }
 
     private function handleEvent(DomainEvent $event): void

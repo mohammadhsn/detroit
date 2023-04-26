@@ -4,18 +4,10 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Domain;
 
-use Detroit\Core\Domain\Aggregate\AggregateRootId;
 use Detroit\Core\Domain\Aggregate\Repository;
+use Detroit\Tests\Domain\Aggregate\DummyAggregateRoot;
 
-class DummyRepository implements Repository
+interface DummyRepository extends Repository
 {
-    public function seen(): array
-    {
-        return [];
-    }
-
-    public function nextIdentity(): AggregateRootId
-    {
-        return AggregateRootId::fromValue("id-" . mt_rand(1, 100));
-    }
+    public function persist(DummyAggregateRoot $aggregateRoot): void;
 }
