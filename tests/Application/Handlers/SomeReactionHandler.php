@@ -12,6 +12,5 @@ class SomeReactionHandler implements EventHandler
 {
     public function handle(DomainEvent|SomethingHappened $event): void
     {
-        dump(__METHOD__);
     }
 }

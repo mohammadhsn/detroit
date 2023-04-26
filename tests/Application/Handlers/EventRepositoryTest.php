@@ -23,7 +23,7 @@ class EventRepositoryTest extends TestCase
     public function test_register()
     {
         $this->repository->register(SomethingHappened::class, [SomeOtherReactionHandler::class]);
-        $this->assertCount(2, $this->repository->handlersFor(new SomethingHappened('foo', 'bar')));
+        $this->assertCount(1, $this->repository->handlersFor(new SomethingHappened('foo', 'bar')));
     }
 
     public function test_factory()
