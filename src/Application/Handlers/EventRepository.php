@@ -32,7 +32,7 @@ class EventRepository
     public function register(string $eventClass, array $handlerClasses): self
     {
         if ($this->classExists($eventClass)) {
-            $this->events[$eventClass] = array_merge($this->events[$eventClass], $handlerClasses);
+            $this->events[$eventClass] = array_unique(array_merge($this->events[$eventClass], $handlerClasses));
         } else {
             $this->events[$eventClass] = $handlerClasses;
         }

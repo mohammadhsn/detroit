@@ -7,6 +7,7 @@ namespace Detroit\Tests\Application\Handlers;
 use Detroit\Core\Application\Handlers\CommandDoesNotExist;
 use Detroit\Core\Application\Handlers\CommandMap;
 use Detroit\Core\Application\Handlers\CommandRepository;
+use Detroit\Core\Application\Handlers\EventMap;
 use Detroit\Core\Application\Handlers\EventRepository;
 use Detroit\Core\Application\Handlers\InMemoryCommandBus;
 use Detroit\Core\Concerns\Container;
@@ -24,18 +25,19 @@ class InMemoryCommandBusTest extends TestCase
             new CommandMap(DoSomething::class, DoSomethingHandler::class, InMemoryDummyRepo::class)
         );
 
+        $events = EventRepository::fromMap(
+            new EventMap(SomethingHappened::class, [SomeReactionHandler::class, SomeOtherReactionHandler::class])
+        );
+
         $this->bus = new InMemoryCommandBus(
-            $commands, new EventRepository(), new Container()
+            $commands, $events, new Container()
         );
     }
 
     public function test_handling_a_command()
     {
         $this->bus->handle(new DoSomething('hi'));
-
-        $this->assertCount(1, $this->bus->records);
-
-        $this->assertInstanceOf(SomethingHappened::class, array_pop($this->bus->records));
+        $this->assertInstanceOf(SomethingHappened::class, array_pop($this->bus->proceed));
     }
 
     public function test_handling_an_undefined_command()

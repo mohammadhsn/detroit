@@ -8,7 +8,7 @@ use Detroit\Core\Application\Handlers\EventHandler;
 use Detroit\Core\Domain\Event\DomainEvent;
 use Detroit\Tests\Domain\Event\SomethingHappened;
 
-class SomeReactionHandler implements EventHandler
+class SomeOtherReactionHandler implements EventHandler
 {
     public function handle(DomainEvent|SomethingHappened $event): void
     {

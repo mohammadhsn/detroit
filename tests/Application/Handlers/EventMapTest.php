@@ -13,7 +13,7 @@ class EventMapTest extends TestCase
 {
     public function test_validation()
     {
-        $map = new EventMap(SomethingHappened::class, [SomeReactionHandler::class]);
+        $map = new EventMap(SomethingHappened::class, [SomeOtherReactionHandler::class]);
         $this->assertInstanceOf(EventMap::class, $map);
         $this->expectException(InvalidArgumentException::class);
         new EventMap(SomethingHappened::class, [DoSomethingElse::class]);
