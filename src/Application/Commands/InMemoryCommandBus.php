@@ -37,8 +37,8 @@ class InMemoryCommandBus implements CommandBus
 
     private function handleEvent(DomainEvent $event): void
     {
-        foreach ($this->events->handlersFor($event) as $handler) {
-            (new $handler)->handle($event);
+        foreach ($this->resolveEventHandlers($event) as $handler) {
+            $handler->handle($event);
         }
     }
 
@@ -53,6 +53,15 @@ class InMemoryCommandBus implements CommandBus
     {
         return $this->container->get(
             $this->commands->repoClassFor($command)
+        );
+    }
+
+    /** @return EventHandler[] */
+    private function resolveEventHandlers(DomainEvent $event): array
+    {
+        return array_map(
+            fn (string $handlerClass) => $this->container->get($handlerClass),
+            $this->events->handlersFor($event)
         );
     }
 }
