@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Tests\Domain;
+namespace Detroit\Tests\Domain\Repository;
 
 use Detroit\Core\Domain\Repository\Repository;
 use Detroit\Tests\Domain\Aggregate\DummyAggregateRoot;

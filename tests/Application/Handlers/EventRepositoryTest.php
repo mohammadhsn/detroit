@@ -1,6 +1,6 @@
 <?php
 
-namespace Detroit\Tests\Application\Commands;
+namespace Detroit\Tests\Application\Handlers;
 
 use Detroit\Core\Application\Handlers\EventMap;
 use Detroit\Core\Application\Handlers\EventRepository;

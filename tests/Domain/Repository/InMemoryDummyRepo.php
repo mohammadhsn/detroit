@@ -1,6 +1,6 @@
 <?php
 
-namespace Detroit\Tests\Domain;
+namespace Detroit\Tests\Domain\Repository;
 
 use Detroit\Core\Domain\Repository\BaseRepo;
 use Detroit\Tests\Domain\Aggregate\DummyAggregateRoot;

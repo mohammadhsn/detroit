@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Tests\Application\Commands;
+namespace Detroit\Tests\Application\Handlers;
 
 use Detroit\Core\Application\Handlers\EventHandler;
 use Detroit\Core\Domain\Event\DomainEvent;
