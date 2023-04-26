@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Domain\Aggregate;
 
-use Detroit\Tests\Domain\Event\DummyEvent;
+use Detroit\Tests\Domain\Event\SomethingHappened;
 use PHPUnit\Framework\TestCase;
 
 class AggregateRootTest extends TestCase
@@ -19,6 +19,6 @@ class AggregateRootTest extends TestCase
     {
         $aggregate = new DummyAggregateRoot();
         $aggregate->doSomething();
-        $this->assertInstanceOf(DummyEvent::class, $aggregate->pullRecordedEvents()[0]);
+        $this->assertInstanceOf(SomethingHappened::class, $aggregate->pullRecordedEvents()[0]);
     }
 }
