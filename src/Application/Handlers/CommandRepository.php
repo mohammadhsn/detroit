@@ -30,6 +30,7 @@ class CommandRepository
     public function register(CommandMap $map): self
     {
         $this->commands[$map->command] = $map;
+
         return $this;
     }
 
@@ -49,7 +50,7 @@ class CommandRepository
             throw CommandDoesNotExist::from($command);
         }
 
-        return $this->commands[get_class($command)];
+        return $this->commands[\get_class($command)];
     }
 
     public function handlerClassFor(Command $command): string

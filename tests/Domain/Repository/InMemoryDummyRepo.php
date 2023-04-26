@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Detroit\Tests\Domain\Repository;
 
 use Detroit\Core\Domain\Repository\BaseRepo;

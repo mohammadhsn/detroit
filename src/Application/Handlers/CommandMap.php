@@ -14,8 +14,7 @@ class CommandMap
         public readonly string $command,
         public readonly string $handler,
         public readonly string $repo
-    )
-    {
+    ) {
         $this->mustImplement($command, Command::class);
         $this->mustImplement($handler, CommandHandler::class);
         $this->mustImplement($repo, Repository::class);

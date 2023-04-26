@@ -1,14 +1,15 @@
 <?php
 
-namespace Detroit\Core\Domain\Repository;
+declare(strict_types=1);
 
+namespace Detroit\Core\Domain\Repository;
 
 use Detroit\Core\Domain\Aggregate\AggregateRoot;
 use Detroit\Core\Domain\Aggregate\AggregateRootId;
 
 abstract class BaseRepo implements Repository
 {
-    /** @var $seen AggregateRoot[] */
+    /** @var AggregateRoot[] */
     private array $seen = [];
 
     public function seen(): array
@@ -18,7 +19,7 @@ abstract class BaseRepo implements Repository
 
     protected function addSeen(AggregateRoot $aggregate): void
     {
-        $this->seen []= $aggregate;
+        $this->seen[] = $aggregate;
     }
 
     public function nextIdentity(): AggregateRootId

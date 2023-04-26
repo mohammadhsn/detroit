@@ -9,10 +9,9 @@ use Detroit\Tests\Domain\Event\SomethingHappened;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-
 class EventMapTest extends TestCase
 {
-    public function test_validation() 
+    public function test_validation()
     {
         $map = new EventMap(SomethingHappened::class, [SomeReactionHandler::class]);
         $this->assertInstanceOf(EventMap::class, $map);

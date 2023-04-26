@@ -13,15 +13,14 @@ class DummyAggregateRoot extends AggregateRoot
     public function __construct(
         public readonly AggregateRootId $id,
         public readonly string $attr
-    )
-    {
-
+    ) {
     }
 
     public static function withRecorded(AggregateRootId $id, string $attr): self
     {
         $aggregate = new self($id, $attr);
         $aggregate->record(new SomethingHappened($id->value, $attr));
+
         return $aggregate;
     }
 }

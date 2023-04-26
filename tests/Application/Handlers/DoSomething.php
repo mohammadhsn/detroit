@@ -10,7 +10,6 @@ class DoSomething implements Command
 {
     public function __construct(public readonly string $attr)
     {
-
     }
 
     public function description(): string

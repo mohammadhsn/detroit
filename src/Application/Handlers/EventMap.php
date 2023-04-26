@@ -6,7 +6,6 @@ namespace Detroit\Core\Application\Handlers;
 
 use Detroit\Core\Domain\Event\DomainEvent;
 
-
 class EventMap
 {
     use ChecksTypes;
@@ -14,8 +13,7 @@ class EventMap
     public function __construct(
         public readonly string $event,
         public readonly array $handlers
-    )
-    {
+    ) {
         $this->mustExtend($event, DomainEvent::class);
 
         foreach ($handlers as $handler) {

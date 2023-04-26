@@ -8,28 +8,26 @@ use Detroit\Core\Domain\Event\DomainEvent;
 use Detroit\Core\Domain\Repository\Repository;
 use Psr\Container\ContainerInterface;
 
-
 class InMemoryCommandBus implements CommandBus
 {
-    /** @var $records DomainEvent[] */
+    /** @var DomainEvent[] */
     public array $records = [];
 
     public function __construct(
         private readonly CommandRepository $commands,
         private readonly EventRepository $events,
         private readonly ContainerInterface $container,
-    )
-    {
+    ) {
     }
 
     public function handle(Command|DomainEvent $message): ?string
     {
         if ($message instanceof Command) {
             return $this->handleCommand($message);
-        } else {
-            $this->handleEvent($message);
-            return null;
         }
+        $this->handleEvent($message);
+
+        return null;
     }
 
     private function handleCommand(Command $command): ?string

@@ -11,6 +11,6 @@ use Detroit\Tests\Domain\Event\SomethingHappened;
 class SomeReactionHandler implements EventHandler
 {
     public function handle(DomainEvent|SomethingHappened $event): void
-    { 
+    {
     }
 }

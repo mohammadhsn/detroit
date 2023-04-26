@@ -13,10 +13,8 @@ trait ChecksTypes
     {
         $ref = new ReflectionClass($class);
 
-        if (! $ref->implementsInterface($interface)) {
-            throw new InvalidArgumentException(
-                sprintf("Class %s must implement %s", $class, $interface)
-            );
+        if (!$ref->implementsInterface($interface)) {
+            throw new InvalidArgumentException(sprintf('Class %s must implement %s', $class, $interface));
         }
     }
 
@@ -24,10 +22,8 @@ trait ChecksTypes
     {
         $ref = new ReflectionClass($class);
 
-        if (! $ref->isSubclassOf($parent)) {
-            throw new InvalidArgumentException(
-                sprintf("Class %s must extend %s", $class, $parent)
-            );
+        if (!$ref->isSubclassOf($parent)) {
+            throw new InvalidArgumentException(sprintf('Class %s must extend %s', $class, $parent));
         }
-    }    
+    }
 }
