@@ -72,6 +72,10 @@ class InMemoryCommandBusTest extends TestCase
 
         $bus->handle(new L1Command());
 
-        $this->assertSame(['l1', 'l2', 'l3'], $bus->results);
+        $this->assertCount(3, $bus->results);
+
+        $this->assertSame('l1', $bus->results[0]->result);
+        $this->assertSame('l2', $bus->results[1]->result);
+        $this->assertSame('l3', $bus->results[2]->result);
     }
 }

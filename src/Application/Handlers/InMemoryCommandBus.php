@@ -14,7 +14,7 @@ class InMemoryCommandBus implements CommandBus
     public array $records = [];
     /** @var DomainEvent[] */
     public array $proceed = [];
-
+    /** @var CommandResult[] */
     public array $results = [];
 
     private static ?self $instance = null;
@@ -55,7 +55,7 @@ class InMemoryCommandBus implements CommandBus
             ->handle($command, $repo = $this->resolveRepoFor($command));
 
         if ($result) {
-            $this->results[] = $result;
+            $this->results[] = new CommandResult($command, $result);
         }
 
         foreach ($repo->seen() as $aggregateRoot) {
