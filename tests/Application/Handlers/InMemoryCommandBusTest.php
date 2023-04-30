@@ -68,7 +68,9 @@ class InMemoryCommandBusTest extends TestCase
             new EventMap(SomethingElseHappened::class, [L2EventHandler::class]),
         ]);
 
-        $bus = new InMemoryCommandBus($commands, $events, new Container());
+        $bus = new InMemoryCommandBus(
+            $commands, $events, new Container(), $txn = new SpyBoundary()
+        );
 
         $bus->handle(new L1Command());
 
@@ -77,5 +79,7 @@ class InMemoryCommandBusTest extends TestCase
         $this->assertSame('l1', $bus->results[0]->result);
         $this->assertSame('l2', $bus->results[1]->result);
         $this->assertSame('l3', $bus->results[2]->result);
+
+        $this->assertSame(['start', 'commit'], $txn->calls);
     }
 }

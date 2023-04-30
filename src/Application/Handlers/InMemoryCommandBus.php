@@ -23,6 +23,7 @@ class InMemoryCommandBus implements CommandBus
         private readonly CommandRepository $commands,
         private readonly EventRepository $events,
         private readonly ContainerInterface $container,
+        public readonly ?TransactionBoundary $txn = null,
     ) {
         self::$instance = $this;
     }
@@ -40,11 +41,15 @@ class InMemoryCommandBus implements CommandBus
 
     public function handle(Command|DomainEvent $message): ?string
     {
+        $this->start();
+
         if ($message instanceof Command) {
-            return $this->handleCommand($message);
+            $this->handleCommand($message);
+        } else {
+            $this->handleEvent($message);
         }
 
-        $this->handleEvent($message);
+        $this->commit();
 
         return null;
     }
@@ -98,5 +103,31 @@ class InMemoryCommandBus implements CommandBus
             fn (string $handlerClass) => $this->container->get($handlerClass),
             $this->events->handlersFor($event)
         );
+    }
+
+    private function start(): void
+    {
+        if (!$this->txn) {
+            return;
+        }
+
+        if ($this->txn->hasBeenStarted()) {
+            return;
+        }
+
+        $this->txn->start();
+    }
+
+    private function commit()
+    {
+        if (!$this->txn) {
+            return;
+        }
+
+        if ($this->txn->hasBeenCommitted()) {
+            return;
+        }
+
+        $this->txn->commit();
     }
 }
