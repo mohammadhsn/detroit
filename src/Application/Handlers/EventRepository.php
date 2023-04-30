@@ -18,7 +18,7 @@ class EventRepository
         $repo = new static();
 
         foreach ($events as $event) {
-            $repo->register($event->event, $event->handlers);
+            $repo->register($event);
         }
 
         return $repo;
@@ -26,15 +26,15 @@ class EventRepository
 
     public static function fromMap(EventMap $map): self
     {
-        return (new static())->register($map->event, $map->handlers);
+        return (new static())->register($map);
     }
 
-    public function register(string $eventClass, array $handlerClasses): self
+    public function register(EventMap $map): self
     {
-        if ($this->classExists($eventClass)) {
-            $this->events[$eventClass] = array_unique(array_merge($this->events[$eventClass], $handlerClasses));
+        if ($this->classExists($map->event)) {
+            $this->events[$map->event] = array_unique(array_merge($this->events[$map->event], $map->handlers));
         } else {
-            $this->events[$eventClass] = $handlerClasses;
+            $this->events[$map->event] = $map->handlers;
         }
 
         return $this;
@@ -43,6 +43,11 @@ class EventRepository
     public function all(): array
     {
         return array_keys($this->events);
+    }
+
+    public function events(): array
+    {
+        return $this->events;
     }
 
     public function classExists(string $event): bool

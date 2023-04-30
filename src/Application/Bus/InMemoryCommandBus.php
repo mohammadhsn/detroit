@@ -7,8 +7,10 @@ namespace Detroit\Core\Application\Bus;
 use Detroit\Core\Application\Command\Command;
 use Detroit\Core\Application\Command\CommandRepository;
 use Detroit\Core\Application\Command\CommandResult;
+use Detroit\Core\Application\Handlers\AfterCommit;
 use Detroit\Core\Application\Handlers\CommandHandler;
 use Detroit\Core\Application\Handlers\EventHandler;
+use Detroit\Core\Application\Handlers\EventMap;
 use Detroit\Core\Application\Handlers\EventRepository;
 use Detroit\Core\Domain\Event\DomainEvent;
 use Detroit\Core\Domain\Repository\Repository;
@@ -23,6 +25,11 @@ class InMemoryCommandBus implements CommandBus
     /** @var CommandResult[] */
     public array $results = [];
 
+    private static EventRepository $afterCommits;
+
+    /** @var DomainEvent[] */
+    public array $afterCommitEvents = [];
+
     private static ?self $instance = null;
 
     public function __construct(
@@ -32,6 +39,7 @@ class InMemoryCommandBus implements CommandBus
         public readonly ?Transaction $txn = null)
     {
         self::$instance = $this;
+        self::$afterCommits = new EventRepository();
     }
 
     public static function getInstance(...$args): self
@@ -56,6 +64,12 @@ class InMemoryCommandBus implements CommandBus
         }
 
         $this->commit();
+
+        //        foreach (self::$afterCommits->events() as $event => $handlers) {
+        //            foreach ($handlers as $handler) {
+        //                $handler->handle($this->afterCommitEvents[$event]);
+        //            }
+        //        }
 
         return null;
     }
@@ -84,6 +98,14 @@ class InMemoryCommandBus implements CommandBus
     private function handleEvent(DomainEvent $event): void
     {
         foreach ($this->resolveEventHandlers($event) as $handler) {
+            if ($handler instanceof AfterCommit) {
+                self::$afterCommits->register(
+                    new EventMap(\get_class($event), [$handler])
+                );
+                $this->afterCommitEvents[\get_class($event)] = $event;
+                continue;
+            }
+
             $handler->handle($event);
         }
     }

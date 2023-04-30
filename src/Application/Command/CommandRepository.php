@@ -8,9 +8,7 @@ class CommandRepository
 {
     private array $commands = [];
 
-    /**
-     * @param CommandMap[] $commands
-     */
+    /** @param CommandMap[] $commands */
     public static function fromCommands(array $commands): self
     {
         $repo = new static();
