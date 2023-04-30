@@ -69,7 +69,7 @@ class InMemoryCommandBusTest extends TestCase
         ]);
 
         $bus = new InMemoryCommandBus(
-            $commands, $events, new Container(), $txn = new Spy()
+            $commands, $events, new Container(), $txn = new SpyTxn()
         );
 
         $bus->handle(new L1Command());

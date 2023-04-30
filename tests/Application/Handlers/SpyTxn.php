@@ -6,7 +6,7 @@ namespace Detroit\Tests\Application\Handlers;
 
 use Detroit\Core\Application\Handlers\Transaction;
 
-class Spy implements Transaction
+class SpyTxn implements Transaction
 {
     public array $calls = [];
 
