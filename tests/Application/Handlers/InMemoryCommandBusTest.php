@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers;
 
-use Detroit\Core\Application\Handlers\CommandDoesNotExist;
-use Detroit\Core\Application\Handlers\CommandMap;
-use Detroit\Core\Application\Handlers\CommandRepository;
+use Detroit\Core\Application\Bus\InMemoryCommandBus;
+use Detroit\Core\Application\Command\CommandDoesNotExist;
+use Detroit\Core\Application\Command\CommandMap;
+use Detroit\Core\Application\Command\CommandRepository;
 use Detroit\Core\Application\Handlers\EventMap;
 use Detroit\Core\Application\Handlers\EventRepository;
-use Detroit\Core\Application\Handlers\InMemoryCommandBus;
 use Detroit\Core\Concerns\Container;
 use Detroit\Tests\Application\Handlers\Seed\L1Command;
 use Detroit\Tests\Application\Handlers\Seed\L1CommandHandler;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers\Seed;
 
-use Detroit\Core\Application\Handlers\CommandBus;
+use Detroit\Core\Application\Bus\CommandBus;
 use Detroit\Core\Application\Handlers\EventHandler;
 use Detroit\Core\Domain\Event\DomainEvent;
 use Detroit\Tests\Domain\Event\SomethingElseHappened;

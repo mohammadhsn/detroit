@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers;
 
-use Detroit\Core\Application\Handlers\CommandMap;
-use Detroit\Core\Application\Handlers\CommandRepository;
+use Detroit\Core\Application\Command\CommandMap;
+use Detroit\Core\Application\Command\CommandRepository;
 use Detroit\Tests\Domain\Repository\DummyRepository;
 use PHPUnit\Framework\TestCase;
 

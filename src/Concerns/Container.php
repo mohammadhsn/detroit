@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Core\Concerns;
 
-use Detroit\Core\Application\Handlers\InMemoryCommandBus;
+use Detroit\Core\Application\Bus\InMemoryCommandBus;
 use Detroit\Tests\Application\Handlers\Seed\L1EventHandler;
 use Detroit\Tests\Application\Handlers\Seed\L2EventHandler;
 use Exception;

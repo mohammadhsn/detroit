@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers\Seed;
 
-use Detroit\Core\Application\Handlers\Command;
+use Detroit\Core\Application\Command\Command;
 
 class L3Command implements Command
 {

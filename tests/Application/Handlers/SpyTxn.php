@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers;
 
-use Detroit\Core\Application\Handlers\Transaction;
+use Detroit\Core\Application\Bus\Transaction;
 
 class SpyTxn implements Transaction
 {

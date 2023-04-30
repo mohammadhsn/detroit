@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Application\Handlers;
+namespace Detroit\Core\Application\Command;
 
 use Exception;
 

@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Application\Handlers;
+namespace Detroit\Core\Application\Bus;
 
+use Detroit\Core\Application\Command\Command;
+use Detroit\Core\Application\Command\CommandRepository;
+use Detroit\Core\Application\Command\CommandResult;
+use Detroit\Core\Application\Handlers\CommandHandler;
+use Detroit\Core\Application\Handlers\EventHandler;
+use Detroit\Core\Application\Handlers\EventRepository;
 use Detroit\Core\Domain\Event\DomainEvent;
 use Detroit\Core\Domain\Repository\Repository;
 use Psr\Container\ContainerInterface;

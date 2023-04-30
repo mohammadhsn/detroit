@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Core\Application\Handlers;
 
+use Detroit\Core\Concerns\ChecksTypes;
 use Detroit\Core\Domain\Event\DomainEvent;
 
 class EventMap

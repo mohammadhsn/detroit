@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Detroit\Core\Application\Handlers;
+namespace Detroit\Core\Application\Command;
 
+use Detroit\Core\Application\Handlers\CommandHandler;
+use Detroit\Core\Concerns\ChecksTypes;
 use Detroit\Core\Domain\Repository\Repository;
 
 class CommandMap
