@@ -15,11 +15,27 @@ class InMemoryCommandBus implements CommandBus
     /** @var DomainEvent[] */
     public array $proceed = [];
 
+    public array $results = [];
+
+    private static ?self $instance = null;
+
     public function __construct(
         private readonly CommandRepository $commands,
         private readonly EventRepository $events,
         private readonly ContainerInterface $container,
     ) {
+        self::$instance = $this;
+    }
+
+    public static function getInstance(...$args): self
+    {
+        if (self::$instance !== null) {
+            return self::$instance;
+        }
+
+        self::$instance = new self(...$args);
+
+        return self::$instance;
     }
 
     public function handle(Command|DomainEvent $message): ?string
@@ -35,8 +51,12 @@ class InMemoryCommandBus implements CommandBus
 
     private function handleCommand(Command $command): ?string
     {
-        $this->resolveCommandHandler($command)
+        $result = $this->resolveCommandHandler($command)
             ->handle($command, $repo = $this->resolveRepoFor($command));
+
+        if ($result) {
+            $this->results[] = $result;
+        }
 
         foreach ($repo->seen() as $aggregateRoot) {
             $this->records = array_merge($this->records, $aggregateRoot->pullRecordedEvents());

@@ -11,6 +11,15 @@ use Detroit\Core\Application\Handlers\EventMap;
 use Detroit\Core\Application\Handlers\EventRepository;
 use Detroit\Core\Application\Handlers\InMemoryCommandBus;
 use Detroit\Core\Concerns\Container;
+use Detroit\Tests\Application\Handlers\Seed\L1Command;
+use Detroit\Tests\Application\Handlers\Seed\L1CommandHandler;
+use Detroit\Tests\Application\Handlers\Seed\L1EventHandler;
+use Detroit\Tests\Application\Handlers\Seed\L2Command;
+use Detroit\Tests\Application\Handlers\Seed\L2CommandHandler;
+use Detroit\Tests\Application\Handlers\Seed\L2EventHandler;
+use Detroit\Tests\Application\Handlers\Seed\L3Command;
+use Detroit\Tests\Application\Handlers\Seed\L3CommandHandler;
+use Detroit\Tests\Domain\Event\SomethingElseHappened;
 use Detroit\Tests\Domain\Event\SomethingHappened;
 use Detroit\Tests\Domain\Repository\InMemoryDummyRepo;
 use PHPUnit\Framework\TestCase;
@@ -44,5 +53,25 @@ class InMemoryCommandBusTest extends TestCase
     {
         $this->expectException(CommandDoesNotExist::class);
         $this->bus->handle(new DoSomethingElse());
+    }
+
+    public function test_multilevel_commands()
+    {
+        $commands = CommandRepository::fromCommands([
+            new CommandMap(L1Command::class, L1CommandHandler::class, InMemoryDummyRepo::class),
+            new CommandMap(L2Command::class, L2CommandHandler::class, InMemoryDummyRepo::class),
+            new CommandMap(L3Command::class, L3CommandHandler::class, InMemoryDummyRepo::class),
+        ]);
+
+        $events = EventRepository::fromEvents([
+            new EventMap(SomethingHappened::class, [L1EventHandler::class]),
+            new EventMap(SomethingElseHappened::class, [L2EventHandler::class]),
+        ]);
+
+        $bus = new InMemoryCommandBus($commands, $events, new Container());
+
+        $bus->handle(new L1Command());
+
+        $this->assertSame(['l1', 'l2', 'l3'], $bus->results);
     }
 }

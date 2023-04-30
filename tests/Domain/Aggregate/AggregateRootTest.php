@@ -18,7 +18,7 @@ class AggregateRootTest extends TestCase
 
     public function test_record_event()
     {
-        $aggregate = DummyAggregateRoot::withRecorded(new AggregateRootId('foo'), 'bar');
+        $aggregate = DummyAggregateRoot::withSomethingHappened(new AggregateRootId('foo'), 'bar');
         $this->assertInstanceOf(SomethingHappened::class, $aggregate->pullRecordedEvents()[0]);
     }
 }

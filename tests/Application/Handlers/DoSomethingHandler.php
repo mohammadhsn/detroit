@@ -15,7 +15,7 @@ class DoSomethingHandler implements CommandHandler
     public function handle(Command|DoSomething $command, Repository|DummyRepository $repository): ?string
     {
         $repository->persist(
-            DummyAggregateRoot::withRecorded($id = $repository->nextIdentity(), $command->attr)
+            DummyAggregateRoot::withSomethingHappened($id = $repository->nextIdentity(), $command->attr)
         );
 
         return $id->value;
