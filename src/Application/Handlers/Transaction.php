@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Detroit\Core\Application\Handlers;
 
-interface TransactionBoundary
+interface Transaction
 {
     public function start(): void;
 

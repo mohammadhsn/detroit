@@ -23,8 +23,8 @@ class InMemoryCommandBus implements CommandBus
         private readonly CommandRepository $commands,
         private readonly EventRepository $events,
         private readonly ContainerInterface $container,
-        public readonly ?TransactionBoundary $txn = null,
-    ) {
+        public readonly ?Transaction $txn = null)
+    {
         self::$instance = $this;
     }
 
@@ -107,11 +107,7 @@ class InMemoryCommandBus implements CommandBus
 
     private function start(): void
     {
-        if (!$this->txn) {
-            return;
-        }
-
-        if ($this->txn->hasBeenStarted()) {
+        if (!$this->txn || $this->txn->hasBeenStarted()) {
             return;
         }
 
@@ -120,11 +116,7 @@ class InMemoryCommandBus implements CommandBus
 
     private function commit()
     {
-        if (!$this->txn) {
-            return;
-        }
-
-        if ($this->txn->hasBeenCommitted()) {
+        if (!$this->txn || $this->txn->hasBeenCommitted()) {
             return;
         }
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Detroit\Tests\Application\Handlers;
 
-use Detroit\Core\Application\Handlers\TransactionBoundary;
+use Detroit\Core\Application\Handlers\Transaction;
 
-class SpyBoundary implements TransactionBoundary
+class Spy implements Transaction
 {
     public array $calls = [];
 
